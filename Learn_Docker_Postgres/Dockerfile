@@ -4,14 +4,16 @@
 FROM python:3.9
 
 # a command to run in the container when it starts
-RUN  pip install pandas
+RUN  pip install pandas sqlalchemy psycopg2
+RUN apt-get install wget
 
 # the working directory we will use in the container
 WORKDIR /app
 
 # copy file from source to destination in the container we launch
-COPY pipeline.py pipeline.py
+COPY ingest-data-2.py ingest-data-2.py
 
 # the entry point of the program
-ENTRYPOINT [ "bash" ]
+ENTRYPOINT [ "python", "ingest-data-2.py" ]
+# ENTRYPOINT [ "bash" ]
 # could do ENTRYPOINT ["python", "pipeline.py"]

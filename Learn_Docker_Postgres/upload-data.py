@@ -15,13 +15,17 @@ def main():
     except:
         print("error connecting to psql database")
     
-    # read in the data - uses an iterator to chunk the data into chunks of 100,000
-    # this creates an iterator not a dataframe - need to use the next command
-    # to get the next segment (each iteration)
-    df_iter = pd.read_csv('../yellow_tripdata_2021-01.csv', iterator=True, chunksize=100000)
+    
+    try:
+        # read in the data - uses an iterator to chunk the data into chunks of 100,000
+        # this creates an iterator not a dataframe - need to use the next command
+        # to get the next segment (each iteration)
+        df_iter = pd.read_csv('../yellow_tripdata_2021-01.csv', iterator=True, chunksize=100000)
 
-    # get the first 100,000
-    df_h = pd.read_csv('../yellow_tripdata_2021-01.csv', nrows=5)
+        # get the first 100,000
+        df_h = pd.read_csv('../yellow_tripdata_2021-01.csv', nrows=5)
+    except:
+        print("read data unsuccessful")
 
     # what is it
     print(type(df_iter))
@@ -41,6 +45,7 @@ def main():
         print("writing the headers failed")
     
     # write the dataframe to the sql database
+    # this loop seems like a bad way to do it, but just following the class
     while True:
         chunk = next(df_iter)
         try:
@@ -51,9 +56,10 @@ def main():
             # write the rows to the database
             chunk.to_sql(name='yellow_taxi_data', con=engine, if_exists='append')
             t_end = time()
+            size = chunk.length()
             print("inserted chunk... took %.3f seconds" % (t_end - t_start))        
         except:
             print("there was an error in the chuck writing process")
-            
+    
 if __name__ == "__main__":
     main()
