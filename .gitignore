@@ -3,3 +3,5 @@
 # the data that was loaded into the database
 yellow_tripdata_2021-01.csv
 
+/postgres/sql_data/
+
