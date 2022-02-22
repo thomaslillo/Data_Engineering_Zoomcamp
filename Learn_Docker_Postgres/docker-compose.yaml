@@ -7,7 +7,7 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=ny_taxi
     volumes:
-      - /c//Users//Neptune//Desktop//Data_Engineering//Data_Eng_Zoomcamp//Docker_SQL:/var/lib/postgresql/data
+      - /c//Users//Neptune//Desktop//Data_Engineering//Data_Eng_Zoomcamp//Docker_SQL\:/var/lib/postgresql/data
     ports:
       - 5432:5432
   pgadmin:
