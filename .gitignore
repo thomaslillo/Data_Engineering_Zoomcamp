@@ -4,3 +4,5 @@
 yellow_tripdata_2021-01.csv
 
 Terraform/.teraform/
+
+/postgres/sql_data/
